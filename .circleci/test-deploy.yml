@@ -61,7 +61,7 @@ workflows:
           dockerfile: sample/Dockerfile
           path: workspace
           extra-build-args: --compress
-          executor: amd64
+          executor: docker_ubuntu
           role-arn: arn:aws:iam::122211685980:role/CPE_ECR_ADMIN
           lifecycle-policy-path: ./sample/lifecycle-policy.json
           post-steps:
@@ -89,7 +89,7 @@ workflows:
           dockerfile: Dockerfile
           path: ./sample
           extra-build-args: --compress
-          executor: amd64
+          executor: docker_ubuntu
           public-registry: true
           post-steps:
             - run:
@@ -122,7 +122,7 @@ workflows:
           extra-build-args: '--build-arg NPM_TOKEN=${NPM_TOKEN}'
           set-repo-policy: true
           repo-policy-path: ./sample/repo-policy.json
-          executor: amd64
+          executor: docker_ubuntu
           filters:
             tags:
               only: /.*/
@@ -166,7 +166,7 @@ workflows:
           skip-when-tags-exist: true
           matrix:
             parameters:
-              executor: ["amd64", "arm64"]
+              executor: ["docker_ubuntu"]
           filters:
             tags:
               only: /.*/
@@ -195,7 +195,7 @@ workflows:
                   aws ecr delete-repository --repository-name aws-ecr-orb-${CIRCLE_SHA1:0:7}-skip-when-tags-exist-<<matrix.executor>> --force
           matrix:
             parameters:
-              executor: ["amd64", "arm64"]
+              executor: ["docker_ubuntu"]
           filters:
             tags:
               only: /.*/
@@ -237,6 +237,9 @@ workflows:
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 executors:
+  docker_ubuntu:
+    docker:
+      - image: cimg/base:current
   amd64:
     machine:
       image: ubuntu-2204:2022.07.1
