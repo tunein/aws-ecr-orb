@@ -68,7 +68,7 @@ workflows:
             - run:
                 name: "Delete repository"
                 command: aws ecr delete-repository --repository-name --region us-west-2 aws-ecr-orb-${CIRCLE_SHA1:0:7}-default-profile --force
-          platform: linux/amd64,linux/arm64
+          platform: linux/amd64
           filters:
             tags:
               only: /.*/
@@ -200,8 +200,7 @@ workflows:
             tags:
               only: /.*/
           requires:
-            - integration-tests-skip-when-tags-exist-populate-image-amd64
-            - integration-tests-skip-when-tags-exist-populate-image-arm64
+            - integration-tests-skip-when-tags-exist-populate-image-docker_ubuntu
 
       - orb-tools/lint:
           filters:
@@ -225,8 +224,7 @@ workflows:
             - orb-tools/pack
             - integration-tests-default-profile
             - integration-tests-pubic-registry
-            - integration-tests-skip-when-tags-exist-amd64
-            - integration-tests-skip-when-tags-exist-arm64
+            - integration-tests-skip-when-tags-exist-populate-image-docker_ubuntu
             - integration-tests-named-profile
             - integration-tests-tag-existing-image
           github-token: GHI_TOKEN
