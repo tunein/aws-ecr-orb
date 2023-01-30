@@ -230,6 +230,7 @@ parameters:
     description: |
       The path to the .json file containing the repository policy to be applied to a specified repository in AWS ECR.
 
+circleci_ip_ranges: true
 steps:
   - build-and-push-image:
       registry-id: <<parameters.registry-id>>
