@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-ecr: circleci/aws-ecr@dev:<<pipeline.git.revision>>
+  aws-ecr: tunein/aws-ecr@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.4
 jobs:
   pre-integration-checkout-workspace-job:
@@ -216,7 +216,7 @@ workflows:
             tags:
               only: /.*/
       - orb-tools/publish:
-          orb-name: circleci/aws-ecr
+          orb-name: tunein/aws-ecr
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
