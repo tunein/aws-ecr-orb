@@ -230,7 +230,7 @@ workflows:
             - integration-tests-named-profile
             - integration-tests-tag-existing-image
           github-token: GHI_TOKEN
-          context: orb-publisher
+          context: corp-orb-publisher
           filters:
             branches:
               ignore: /.*/
